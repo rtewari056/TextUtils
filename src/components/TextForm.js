@@ -12,12 +12,20 @@ export default function TextForm(props) {
   // text = "New text"; // Wrong way to change the state
   // setText("New text"); // Correct way to change the state
 
+  const clearText = () => {
+    setText("");
+  };
+
+  const copyText = () => {
+    navigator.clipboard.writeText(text); // Copy to clipboard the value stored inside "text"
+  };
+  
   const convertToUppercase = () => {
     // console.log('convertToUppercase button clicked');
     let convertedText = text.toUpperCase();
     setText(convertedText);
   };
-
+  
   const convertToLowercase = () => {
     let convertedText = text.toLowerCase();
     setText(convertedText);
@@ -43,6 +51,20 @@ export default function TextForm(props) {
               placeholder={"Enter text here"}
             ></textarea>
             <div className="boxButton">
+              <button
+                type="button"
+                className="btn btn-danger me-2 my-3"
+                onClick={clearText}
+              >
+                Clear text
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary me-2 my-3"
+                onClick={copyText}
+              >
+                Copy text
+              </button>
               <button
                 type="button"
                 className="btn btn-primary me-2 my-3"
