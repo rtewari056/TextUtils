@@ -9,9 +9,6 @@ const cardStyle = {
 export default function TextForm(props) {
   const [text, setText] = useState("");
 
-  // text = "New text"; // Wrong way to change the state
-  // setText("New text"); // Correct way to change the state
-
   const clearText = () => {
     setText("");
   };
@@ -19,13 +16,13 @@ export default function TextForm(props) {
   const copyText = () => {
     navigator.clipboard.writeText(text); // Copy to clipboard the value stored inside "text"
   };
-  
+
   const convertToUppercase = () => {
     // console.log('convertToUppercase button clicked');
     let convertedText = text.toUpperCase();
     setText(convertedText);
   };
-  
+
   const convertToLowercase = () => {
     let convertedText = text.toLowerCase();
     setText(convertedText);
@@ -39,9 +36,9 @@ export default function TextForm(props) {
   return (
     <>
       <div className="container my-5" style={cardStyle}>
-        <div className="card border-dark mb-3">
+        <div className={`card text-bg-${props.themeMode==="primary"?"light":"dark"} border-${props.themeMode==="primary"?"dark":"light"} mb-3`}>
           <h4 className="card-header">{props.heading}</h4>
-          <div className="card-body text-dark">
+          <div className={`card-body text-light`}>
             <textarea
               className="form-control"
               id="myTextBox"
@@ -53,28 +50,28 @@ export default function TextForm(props) {
             <div className="boxButton">
               <button
                 type="button"
-                className="btn btn-danger me-2 my-3"
+                className="btn btn-danger me-2 mt-3"
                 onClick={clearText}
               >
                 Clear text
               </button>
               <button
                 type="button"
-                className="btn btn-primary me-2 my-3"
+                className="btn btn-primary me-2 mt-3"
                 onClick={copyText}
               >
                 Copy text
               </button>
               <button
                 type="button"
-                className="btn btn-primary me-2 my-3"
+                className="btn btn-primary me-2 mt-3"
                 onClick={convertToUppercase}
               >
                 Convert to uppercase
               </button>
               <button
                 type="button"
-                className="btn btn-primary me-2 my-3"
+                className="btn btn-primary me-2 mt-3"
                 onClick={convertToLowercase}
               >
                 Convert to lowercase
@@ -109,10 +106,15 @@ export default function TextForm(props) {
       </div>
 
       <div className="container my-5" style={cardStyle}>
-        <div className="card text-bg-light mb-3">
-          <div className="card-header"><h5>Preview text</h5>(Expected time to read: {text.split(" ").length * 0.008} minutes)</div>
+        <div className={`card text-bg-${props.themeMode==="primary"?"light":"dark"} border-${props.themeMode==="primary"?"dark":"light"} mb-3`}>
+          <div className="card-header">
+            <h5>Preview text</h5>(Expected time to read:{" "}
+            {text.split(" ").length * 0.008} minutes)
+          </div>
           <div className="card-body">
-            <p className="card-text">{text}</p>
+            <p className="card-text">
+              {text.length > 0 ? text : "Please write something"}
+            </p>
           </div>
         </div>
       </div>
