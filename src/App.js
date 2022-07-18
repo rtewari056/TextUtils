@@ -49,7 +49,7 @@ function App() {
       <Router>
         <Navbar
           title="TextUtils"
-          aboutText="About me"
+          aboutText="About"
           themeMode={mode}
           toggleMode={toggleMode}
         />
@@ -57,7 +57,7 @@ function App() {
         <Alert alert={alertMessage} />
 
         <Routes>
-          {/* exact path=""  matches exact path */}
+          {/* Using exact path=""  is recommended */}
           <Route exact path="/about" element={<About themeMode={mode} aboutCardTitle={aboutCardTitle} aboutCardText={aboutCardText} />} />
           <Route
             exact
