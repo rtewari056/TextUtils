@@ -1,12 +1,14 @@
+// import React, { useState } from "react";
+
 export default function About(props) {
+  const aboutCardStyle = {
+    // width: "100%",
+  };
+
   return (
     <>
-      <div className="container mt-5">
-        <div
-          className={`card text-bg-${
-            props.themeMode === "primary" ? "light" : "dark"
-          } border-${props.themeMode === "primary" ? "dark" : "light"} mb-3`}
-        >
+      <div className="container mt-5" style={aboutCardStyle}>
+        <div className={`card text-bg-${props.themeMode==="primary"? "light":"dark"} border-${props.themeMode==="primary"?"dark":"light"} mb-3`}>
           <div className="row g-0">
             <div className="col-md-4">
               <img

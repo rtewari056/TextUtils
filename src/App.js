@@ -4,7 +4,10 @@ import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import Alert from "./components/Alert";
 import TextForm from "./components/TextForm";
-// import About from "./components/About";
+import About from "./components/About";
+
+// Importing React Router Dom
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   const [mode, setMode] = useState("primary"); // State variable for theme mode
@@ -29,40 +32,46 @@ function App() {
   const toggleMode = () => {
     if (mode === "dark") {
       setMode("primary");
-      setbodyBgColor("#E5EDF6");
+      setbodyBgColor("#E5EDF6")
       showAlert("Light mode has been enabled", "success");
     } else {
       setMode("dark");
-      setbodyBgColor("#032a63");
+      setbodyBgColor("#032a63")
       showAlert("Dark mode has been enabled", "success");
     }
   };
 
-  // const aboutCardTitle = "Hi! I am Rohit";
-  // const aboutCardText = `I am a JavaScript Developer who is mostly inclined towards MERN stack. Worked on server-side code using Node JS & Express JS. Along with JavaScript, contributed to open-source projects and worked on JS frameworks like React JS.`;
+  const aboutCardTitle = "Hi! I am Rohit";
+  const aboutCardText = `I am a JavaScript Developer who is mostly inclined towards MERN stack. Worked on server-side code using Node JS & Express JS. Along with JavaScript, contributed to open-source projects and worked on JS frameworks like React JS.`;
 
   return (
     <>
-      <Navbar
-        title="TextUtils"
-        aboutText="About"
-        themeMode={mode}
-        toggleMode={toggleMode}
-      />
+      <Router>
+        <Navbar
+          title="TextUtils"
+          aboutText="About"
+          themeMode={mode}
+          toggleMode={toggleMode}
+        />
 
-      <Alert alert={alertMessage} />
+        <Alert alert={alertMessage} />
 
-      <TextForm
-        heading="Enter the text to analyze"
-        themeMode={mode}
-        showAlert={showAlert}
-      />
-
-      {/* <About
-        themeMode={mode}
-        aboutCardTitle={aboutCardTitle}
-        aboutCardText={aboutCardText}
-      /> */}
+        <Routes>
+          {/* Using exact path=""  is recommended */}
+          <Route exact path="/about" element={<About themeMode={mode} aboutCardTitle={aboutCardTitle} aboutCardText={aboutCardText} />} />
+          <Route
+            exact
+            path="/"
+            element={
+              <TextForm
+                heading="Enter the text to analyze"
+                themeMode={mode}
+                showAlert={showAlert}
+              />
+            }
+          />
+        </Routes>
+      </Router>
     </>
   );
 }
