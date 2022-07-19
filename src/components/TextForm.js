@@ -72,12 +72,13 @@ export default function TextForm(props) {
   const removeSpaces = () => {
     /*
     Algorithm to remove spaces, tabs, and line breaks:
-      1. \s+: matches one or more any whitespace symbol: spaces, tabs, and line breaks
-      2. g: the g at the end indicates iterative searching throughout the full string
-      3. Trim any surrounding spaces from the string using JavaScript’s string.trim() method
+    1. \s+: matches one or more any whitespace symbol: spaces, tabs, and line breaks
+    2. g: the g at the end indicates iterative searching throughout the full string
+    3. Trim any surrounding spaces from the string using JavaScript’s string.trim() method
     */
     let convertedText = text.replace(/\s+/g, " ").trim();
     setText(convertedText);
+    props.showAlert("Removed extra white spaces", "success");
   };
 
   return (
@@ -91,18 +92,26 @@ export default function TextForm(props) {
           <h4 className="card-header">{props.heading}</h4>
           <div className={`card-body text-light`}>
             <textarea
-              className="form-control"
+              className={`form-control text-${
+                props.themeMode === "primary" ? "dark" : "light"
+              }`}
               id="myTextBox"
               rows="8"
               value={text}
               onChange={handleOnChange}
               placeholder={"Start typing, or copy and paste your text here..."}
+              style={{
+                // If light mode is on then set textbox background color to white else black
+                backgroundColor:
+                  props.themeMode === "primary" ? "white" : "#343a40",
+              }}
             ></textarea>
             <div className="boxButton">
               <button
                 type="button"
                 className="btn btn-danger me-2 mt-3"
                 onClick={clearText}
+                disabled={countWords() === 0 ? true : false}
               >
                 Clear text
               </button>
@@ -110,6 +119,7 @@ export default function TextForm(props) {
                 type="button"
                 className="btn btn-primary me-2 mt-3"
                 onClick={copyText}
+                disabled={countWords() === 0 ? true : false}
               >
                 Copy text
               </button>
@@ -117,6 +127,7 @@ export default function TextForm(props) {
                 type="button"
                 className="btn btn-primary me-2 mt-3"
                 onClick={convertToUppercase}
+                disabled={countWords() === 0 ? true : false}
               >
                 Convert to uppercase
               </button>
@@ -124,6 +135,7 @@ export default function TextForm(props) {
                 type="button"
                 className="btn btn-primary me-2 mt-3"
                 onClick={convertToLowercase}
+                disabled={countWords() === 0 ? true : false}
               >
                 Convert to lowercase
               </button>
@@ -131,8 +143,9 @@ export default function TextForm(props) {
                 type="button"
                 className="btn btn-primary me-2 mt-3"
                 onClick={removeSpaces}
+                disabled={countWords() === 0 ? true : false}
               >
-                Remove white spaces
+                Remove extra spaces
               </button>
             </div>
           </div>
